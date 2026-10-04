@@ -1,11 +1,18 @@
 import type { NextConfig } from "next";
 
-const BACKEND_HOSTNAME = process.env.NEXT_PUBLIC_BACKEND_HOSTNAME || process.env.BACKEND_HOSTNAME || "127.0.0.1";
-const BACKEND_PROTOCOL = process.env.NEXT_PUBLIC_BACKEND_PROTOCOL || process.env.BACKEND_PROTOCOL || "http";
+const BACKEND_HOSTNAME =
+  process.env.NEXT_PUBLIC_BACKEND_HOSTNAME ||
+  process.env.BACKEND_HOSTNAME ||
+  "127.0.0.1";
 
-const nextConfig: NextConfig = {
+const BACKEND_PROTOCOL =
+  process.env.NEXT_PUBLIC_BACKEND_PROTOCOL ||
+  process.env.BACKEND_PROTOCOL ||
+  "http";
+
+const nextConfig = {
   images: {
-    dangerouslyAllowLocalIP: true, // backend media is served from configured backend host
+    dangerouslyAllowLocalIP: true,
     remotePatterns: [
       {
         protocol: "https",
@@ -23,7 +30,6 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
       {
-        // Temporary: reference banner borrowed from graceintlgroup.com
         protocol: "https",
         hostname: "graceintlgroup.com",
         pathname: "/**",
@@ -33,10 +39,11 @@ const nextConfig: NextConfig = {
         hostname: BACKEND_HOSTNAME,
         pathname: "/**",
       },
-      ...(BACKEND_HOSTNAME === "127.0.0.1" || BACKEND_HOSTNAME === "localhost"
+      ...(BACKEND_HOSTNAME === "127.0.0.1" ||
+      BACKEND_HOSTNAME === "localhost"
         ? [
             {
-              protocol: "http",
+              protocol: "http" as const,
               hostname: BACKEND_HOSTNAME,
               pathname: "/**",
             },
@@ -44,6 +51,6 @@ const nextConfig: NextConfig = {
         : []),
     ],
   },
-};
+} satisfies NextConfig;
 
 export default nextConfig;
