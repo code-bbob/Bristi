@@ -58,7 +58,13 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+# Allow overriding via env vars (comma separated)
+import os
+_env_cors = os.getenv("CORS_ALLOWED_ORIGINS")
+if _env_cors:
+    CORS_ALLOWED_ORIGINS = [o.strip() for o in _env_cors.split(",") if o.strip()]
+
+CORS_ALLOW_ALL_ORIGINS = os.getenv("CORS_ALLOW_ALL_ORIGINS", "True").lower() == "true"
 
 ROOT_URLCONF = 'bristi_backend.urls'
 

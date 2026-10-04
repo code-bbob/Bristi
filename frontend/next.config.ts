@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
 
+const BACKEND_HOSTNAME = process.env.NEXT_PUBLIC_BACKEND_HOSTNAME || process.env.BACKEND_HOSTNAME || "127.0.0.1";
+const BACKEND_PROTOCOL = process.env.NEXT_PUBLIC_BACKEND_PROTOCOL || process.env.BACKEND_PROTOCOL || "http";
+
 const nextConfig: NextConfig = {
   images: {
-    dangerouslyAllowLocalIP: true, // backend media is served from 127.0.0.1:8000
+    dangerouslyAllowLocalIP: true, // backend media is served from configured backend host
     remotePatterns: [
       {
         protocol: "https",
@@ -26,15 +29,19 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
       {
-        protocol: "http",
-        hostname: "127.0.0.1",
+        protocol: BACKEND_PROTOCOL === "https" ? "https" : "http",
+        hostname: BACKEND_HOSTNAME,
         pathname: "/**",
       },
-      {
-        protocol: "http",
-        hostname: "localhost",
-        pathname: "/**",
-      },
+      ...(BACKEND_HOSTNAME === "127.0.0.1" || BACKEND_HOSTNAME === "localhost"
+        ? [
+            {
+              protocol: "http",
+              hostname: BACKEND_HOSTNAME,
+              pathname: "/**",
+            },
+          ]
+        : []),
     ],
   },
 };
