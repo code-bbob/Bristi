@@ -8,6 +8,9 @@ const BACKEND_HOSTNAME =
 
 const KNOWN_API_HOSTS = ["api.bristi.edu.np"];
 
+const R2_PUBLIC_URL =
+  process.env.NEXT_PUBLIC_R2_PUBLIC_URL || process.env.R2_PUBLIC_URL || "";
+
 function hostOf(value: string): string | null {
   if (!value) return null;
   try {
@@ -20,6 +23,14 @@ function hostOf(value: string): string | null {
 const apiHosts = [
   ...new Set(
     [hostOf(API_URL), hostOf(BACKEND_HOSTNAME), ...KNOWN_API_HOSTS].filter(
+      (host): host is string => Boolean(host),
+    ),
+  ),
+];
+
+const imageHosts = [
+  ...new Set(
+    [...apiHosts, hostOf(R2_PUBLIC_URL)].filter(
       (host): host is string => Boolean(host),
     ),
   ),
@@ -44,7 +55,7 @@ const nextConfig = {
         hostname: "flagcdn.com",
         pathname: "/**",
       },
-      ...apiHosts.flatMap((hostname) => [
+      ...imageHosts.flatMap((hostname) => [
         { protocol: "http" as const, hostname, pathname: "/**" },
         { protocol: "https" as const, hostname, pathname: "/**" },
       ]),

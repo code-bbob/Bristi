@@ -29,3 +29,7 @@ Pillow==10.4.0
 python-barcode==0.15.1
 python-dotenv==1.0.1
 nepali-date-utils
+
+# Cloudflare R2 (S3-compatible) storage
+django-storages[s3]>=1.14
+boto3>=1.34

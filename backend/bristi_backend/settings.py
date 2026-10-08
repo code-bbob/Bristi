@@ -167,9 +167,112 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+# ---------------------------------------------------------------------------
+# Cloudflare R2 (S3-compatible) storage — ON by default (S3 is the default
+# storage backend).
+#
+# USE_R2=False         -> media stays on local disk
+# USE_R2_STATIC=False  -> `collectstatic` writes to local disk instead of R2
+#
+# Credentials come from R2_* vars, with the native django-storages AWS_* names
+# accepted as aliases. All-empty -> local-disk fallback (dev before keys);
+# a *partial* configuration is a hard error so typos never go live unnoticed.
+# All generated media/static URLs are built from R2_PUBLIC_URL, kept in sync
+# with the frontend's NEXT_PUBLIC_R2_PUBLIC_URL.
+# ---------------------------------------------------------------------------
+
+def _env_flag(name, default="True"):
+    return os.getenv(name, default).strip().lower() in ("1", "true", "yes", "on")
+
+
+def _env(*names):
+    """First non-empty value among the given env var names."""
+    for name in names:
+        value = os.getenv(name, "").strip()
+        if value:
+            return value
+    return ""
+
+
+USE_R2 = _env_flag("USE_R2")
+USE_R2_STATIC = _env_flag("USE_R2_STATIC")
+
+R2_ACCOUNT_ID = _env("R2_ACCOUNT_ID")
+R2_ENDPOINT_URL = _env("R2_ENDPOINT_URL", "AWS_S3_ENDPOINT_URL") or (
+    f"https://{R2_ACCOUNT_ID}.r2.cloudflarestorage.com" if R2_ACCOUNT_ID else ""
+)
+R2_BUCKET_NAME = _env("R2_BUCKET_NAME", "AWS_STORAGE_BUCKET_NAME")
+R2_ACCESS_KEY_ID = _env("R2_ACCESS_KEY_ID", "AWS_ACCESS_KEY_ID")
+R2_SECRET_ACCESS_KEY = _env("R2_SECRET_ACCESS_KEY", "AWS_SECRET_ACCESS_KEY")
+R2_PUBLIC_URL = _env("R2_PUBLIC_URL", "AWS_S3_CUSTOM_DOMAIN").rstrip("/")
+R2_REGION = _env("R2_REGION") or "auto"
+
+_R2_REQUIRED = (
+    ("R2_ACCOUNT_ID (or R2_ENDPOINT_URL)", R2_ENDPOINT_URL),
+    ("R2_BUCKET_NAME", R2_BUCKET_NAME),
+    ("R2_ACCESS_KEY_ID", R2_ACCESS_KEY_ID),
+    ("R2_SECRET_ACCESS_KEY", R2_SECRET_ACCESS_KEY),
+    ("R2_PUBLIC_URL", R2_PUBLIC_URL),
+)
+_R2_MISSING = [name for name, value in _R2_REQUIRED if not value]
+
+if (USE_R2 or USE_R2_STATIC) and _R2_MISSING:
+    if len(_R2_MISSING) == len(_R2_REQUIRED):
+        # Nothing configured yet: run on local disk (dev / pre-credentials).
+        import warnings
+
+        USE_R2 = USE_R2_STATIC = False
+        warnings.warn(
+            "Cloudflare R2 credentials are not set; falling back to local "
+            "filesystem storage. Set the R2_* variables in backend/.env to "
+            "enable R2.",
+            RuntimeWarning,
+        )
+    else:
+        from django.core.exceptions import ImproperlyConfigured
+
+        raise ImproperlyConfigured(
+            "Cloudflare R2 storage is partially configured. Missing: "
+            + ", ".join(_R2_MISSING)
+        )
+
+if USE_R2 or USE_R2_STATIC:
+    # Accept either a full URL or a bare hostname.
+    AWS_S3_CUSTOM_DOMAIN = R2_PUBLIC_URL.split("://")[-1].split("/")[0]
+
+    AWS_ACCESS_KEY_ID = R2_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY = R2_SECRET_ACCESS_KEY
+    AWS_STORAGE_BUCKET_NAME = R2_BUCKET_NAME
+    AWS_S3_ENDPOINT_URL = R2_ENDPOINT_URL
+    AWS_S3_REGION_NAME = R2_REGION
+    AWS_S3_ADDRESSING_STYLE = "path"  # R2 does not resolve bucket subdomains
+    AWS_QUERYSTRING_AUTH = False  # public bucket, stable/cacheable URLs
+    AWS_DEFAULT_ACL = None  # R2 objects ignore ACLs; access is bucket policy
+    AWS_S3_FILE_OVERWRITE = True  # keep upload_to paths stable across re-uploads
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "public, max-age=3600"}
+
+    STORAGES = {
+        "default": {
+            "BACKEND": (
+                "storages.backends.s3.S3Storage"
+                if USE_R2
+                else "django.core.files.storage.FileSystemStorage"
+            ),
+        },
+        "staticfiles": {
+            "BACKEND": (
+                "storages.backends.s3.S3StaticStorage"
+                if USE_R2_STATIC
+                else "django.contrib.staticfiles.storage.StaticFilesStorage"
+            ),
+        },
+    }
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
