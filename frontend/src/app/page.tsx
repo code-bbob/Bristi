@@ -67,7 +67,7 @@ export default async function HomePage() {
       {/* BANNER */}
       <section className="relative w-full overflow-hidden bg-primary-container">
         <Image
-          src="/enhanced_bristi-cover.png"
+          src="/bristi-cover-main.jpeg"
           alt="Bristi Educational Consultancy"
           width={2560}
           height={1016}
@@ -98,7 +98,7 @@ export default async function HomePage() {
                   Starts Here.
                 </span>
               </h1>
-              <p className="font-body-lg text-[1.125rem] leading-[1.75rem] text-justify text-on-surface-variant max-w-3xl">
+              <p className="font-body-lg text-[1.125rem] leading-[1.75rem] text-justify text-on-surface-variant max-w-2xl">
                 Personalized guidance for choosing the right course, university, and destination from your first
                 counselling session in Kathmandu to your safe arrival abroad. Through our robust professional network of offices, we provide a professional platform to professionals and students looking for opportunities in foreign colleges. We offer our services for study abroad in Australia, the United Kingdom, Canada, South Korea, New Zealand, the United States and numerous other European nations.
               </p>
