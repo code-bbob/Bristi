@@ -1,12 +1,29 @@
 import { API_URL } from "@/lib/api";
 
+const API_ORIGIN = API_URL.replace(/\/+$/, "");
+
+function isBackendMedia(pathname: string): boolean {
+  return pathname === "/media" || pathname.startsWith("/media/");
+}
+
 export function resolveImage(image: string | null): string {
-  if (image && image.trim()) {
-    const img = image.trim();
-    if (/^https?:\/\//i.test(img)) return img;
-    return `${API_URL}${img.startsWith("/") ? img : `/${img}`}`;
+  const img = image?.trim();
+  if (!img) return "";
+
+  if (!/^https?:\/\//i.test(img)) {
+    return `${API_ORIGIN}${img.startsWith("/") ? img : `/${img}`}`;
   }
-  return "";
+
+  try {
+    const url = new URL(img);
+    const base = API_ORIGIN ? new URL(API_ORIGIN) : null;
+    if (base && (url.host === base.host || isBackendMedia(url.pathname))) {
+      return `${API_ORIGIN}${url.pathname}${url.search}`;
+    }
+    return url.toString();
+  } catch {
+    return img;
+  }
 }
 
 export function formatDate(value: string): string {
