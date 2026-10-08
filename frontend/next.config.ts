@@ -8,6 +8,10 @@ const BACKEND_HOSTNAME =
 
 const KNOWN_API_HOSTS = ["api.bristi.edu.np"];
 
+// Cloudflare R2 CDN — hardcoded so image optimization never depends on a
+// build-time env var; NEXT_PUBLIC_R2_PUBLIC_URL only adds extra hosts.
+const KNOWN_MEDIA_HOSTS = ["cdn.bristi.edu.np"];
+
 const R2_PUBLIC_URL =
   process.env.NEXT_PUBLIC_R2_PUBLIC_URL || process.env.R2_PUBLIC_URL || "";
 
@@ -30,7 +34,7 @@ const apiHosts = [
 
 const imageHosts = [
   ...new Set(
-    [...apiHosts, hostOf(R2_PUBLIC_URL)].filter(
+    [...apiHosts, hostOf(R2_PUBLIC_URL), ...KNOWN_MEDIA_HOSTS].filter(
       (host): host is string => Boolean(host),
     ),
   ),
