@@ -89,12 +89,34 @@ WSGI_APPLICATION = 'bristi_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+PRODUCTION = os.environ.get('PRODUCTION', 'False') == 'True'
+
+# Database
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+if not PRODUCTION:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('POSTGRES_DATABASE'),
+            'USER': os.environ.get('POSTGRES_USERNAME'),
+            'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+            'HOST': os.environ.get('POSTGRES_HOST'),
+            'PORT': os.environ.get('POSTGRES_PORT'),
+            'CONN_MAX_AGE': 600,  # Allow persistent connections
+            'OPTIONS': {
+                'connect_timeout': 10,  # Timeout for initial connection
+            },
+        }
+    }
+
 
 
 # Password validation
