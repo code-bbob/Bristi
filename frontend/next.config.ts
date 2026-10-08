@@ -1,14 +1,29 @@
 import type { NextConfig } from "next";
 
-const BACKEND_HOSTNAME =
-  process.env.NEXT_PUBLIC_BACKEND_HOSTNAME ||
-  process.env.BACKEND_HOSTNAME ||
-  "127.0.0.1";
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || process.env.API_URL || "";
 
-const BACKEND_PROTOCOL =
-  process.env.NEXT_PUBLIC_BACKEND_PROTOCOL ||
-  process.env.BACKEND_PROTOCOL ||
-  "http";
+const BACKEND_HOSTNAME =
+  process.env.NEXT_PUBLIC_BACKEND_HOSTNAME || process.env.BACKEND_HOSTNAME || "";
+
+const KNOWN_API_HOSTS = ["api.bristi.edu.np"];
+
+function hostOf(value: string): string | null {
+  if (!value) return null;
+  try {
+    return new URL(value.includes("://") ? value : `https://${value}`).hostname;
+  } catch {
+    return null;
+  }
+}
+
+const apiHosts = [
+  ...new Set(
+    [hostOf(API_URL), hostOf(BACKEND_HOSTNAME), ...KNOWN_API_HOSTS].filter(
+      (host): host is string => Boolean(host),
+    ),
+  ),
+];
 
 const nextConfig = {
   images: {
@@ -29,26 +44,10 @@ const nextConfig = {
         hostname: "flagcdn.com",
         pathname: "/**",
       },
-      {
-        protocol: "https",
-        hostname: "graceintlgroup.com",
-        pathname: "/**",
-      },
-      {
-        protocol: BACKEND_PROTOCOL === "https" ? "https" : "http",
-        hostname: BACKEND_HOSTNAME,
-        pathname: "/**",
-      },
-      ...(BACKEND_HOSTNAME === "127.0.0.1" ||
-      BACKEND_HOSTNAME === "localhost"
-        ? [
-            {
-              protocol: "http" as const,
-              hostname: BACKEND_HOSTNAME,
-              pathname: "/**",
-            },
-          ]
-        : []),
+      ...apiHosts.flatMap((hostname) => [
+        { protocol: "http" as const, hostname, pathname: "/**" },
+        { protocol: "https" as const, hostname, pathname: "/**" },
+      ]),
     ],
   },
 } satisfies NextConfig;

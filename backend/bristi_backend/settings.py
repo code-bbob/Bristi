@@ -34,6 +34,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+# nginx terminates TLS and proxies to Django over plain http, so without this
+# every absolute URL DRF builds (media images, pagination links) comes back as
+# http:// instead of https://. Only trusted when the proxy sets the header.
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 # Application definition
 
