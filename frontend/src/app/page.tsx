@@ -67,7 +67,7 @@ export default async function HomePage() {
       {/* BANNER */}
       <section className="relative w-full overflow-hidden bg-primary-container">
         <Image
-          src="/enhanced_bristi-cover.png"
+          src="/bristi-cover-main.jpeg"
           alt="Bristi Educational Consultancy"
           width={2560}
           height={1016}
