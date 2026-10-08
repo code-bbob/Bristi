@@ -128,14 +128,11 @@ export default function IntakeCarousel({ intakes }: { intakes: Intake[] }) {
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-primary/95" />
       </div>
-      <div className="relative max-w-[1600px] mx-auto px-6 md:px-8 py-12 md:py-14">
-        <div className="mb-8">
-          <h2 className="font-display text-[1.5rem] md:text-[2rem] font-bold tracking-[-0.02em] text-surface">
+      <div className="relative flex max-w-[1600px] mx-auto px-6 md:px-8 py-12 md:py-14">
+        <div className="">
+          <h2 className="font-display whitespace-nowrap mr-8 text-[1.5rem] md:text-[2rem] font-bold tracking-[-0.02em] text-surface">
             Next Intakes
           </h2>
-          <p className="text-[0.875rem] text-surface/80 mt-1">
-            Upcoming admission windows by destination — drag to browse, tap a country to explore it.
-          </p>
         </div>
 
         <div

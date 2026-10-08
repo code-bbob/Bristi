@@ -87,7 +87,7 @@ export default function DestinationsExplorer({ countries }: { countries: Country
                   </div>
                 )}
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary-container/20 to-transparent" />
             </div>
             <div className="absolute -bottom-4 -left-4 bg-surface-container-lowest rounded-2xl shadow-xl p-4 border border-outline-variant/60 pop-in" style={{ animationDelay: "1s" }}>
               <div className="flex items-center gap-3">

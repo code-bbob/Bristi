@@ -65,9 +65,9 @@ export default async function HomePage() {
   return (
     <>
       {/* BANNER */}
-      <section className="relative w-full overflow-hidden bg-[#192f59]">
+      <section className="relative w-full overflow-hidden bg-primary-container">
         <Image
-          src="https://graceintlgroup.com/wp-content/uploads/2025/04/WEB-BANNER-2-scaled.jpg"
+          src="/enhanced_bristi-cover.png"
           alt="Bristi Educational Consultancy"
           width={2560}
           height={1016}
@@ -77,9 +77,10 @@ export default async function HomePage() {
         />
       </section>
 
+      <IntakeCarousel intakes={intakes} />
       {/* HERO */}
       <section className="relative overflow-hidden pt-12 pb-20 md:pt-16 md:pb-28 bg-gradient-to-b from-surface via-surface-container-low/40 to-surface" id="home">
-        <div className="max-w-[1600px] mx-auto px-6 md:px-8 relative">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-8 relative">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             <div className="lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-secondary/10 border border-secondary/20">
@@ -97,9 +98,9 @@ export default async function HomePage() {
                   Starts Here.
                 </span>
               </h1>
-              <p className="font-body-lg text-[1.125rem] leading-[1.75rem] text-on-surface-variant max-w-2xl">
-                Personalized guidance for choosing the right course, university, and destination — from your first
-                counselling session in Kathmandu to your safe arrival abroad.
+              <p className="font-body-lg text-[1.125rem] leading-[1.75rem] text-justify text-on-surface-variant max-w-3xl">
+                Personalized guidance for choosing the right course, university, and destination from your first
+                counselling session in Kathmandu to your safe arrival abroad. Through our robust professional network of offices, we provide a professional platform to professionals and students looking for opportunities in foreign colleges. We offer our services for study abroad in Australia, the United Kingdom, Canada, South Korea, New Zealand, the United States and numerous other European nations.
               </p>
               <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <Link
@@ -134,10 +135,10 @@ export default async function HomePage() {
                 {heroImageSrc ? (
                   <Image
                     alt={countries[0] ? `${countries[0].name} campus` : "University campus"}
-                    className="w-full h-[460px] lg:h-[420px] object-contain object-top"
+                    className="w-full h-[460px] lg:h-[420px] object-cover object-top"
                     width={800}
                     height={520}
-                    src={"/poster1.png"}
+                    src={"/placeholder-study-abroad.jpg"}
                   />
                 ) : (
                   <div className="w-full h-[460px] lg:h-[520px] bg-gradient-to-br from-primary via-primary-container to-secondary flex items-center justify-center">
@@ -194,7 +195,6 @@ export default async function HomePage() {
       {/* </section> */}
       {/**/}
       {/* NEXT INTAKES */}
-      <IntakeCarousel intakes={intakes} />
 
       {/* DESTINATIONS */}
       <section className="relative py-20 md:py-12 bg-surface overflow-hidden" id="destinations">

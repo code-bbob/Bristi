@@ -49,7 +49,7 @@ export default async function AboutPage() {
               <span className="relative inline-block text-secondary-fixed">
                 honest counselling.
                 <svg
-                  className="pointer-events-none absolute -bottom-2 left-0 w-full text-secondary"
+                  className="pointer-events-none absolute -bottom-5 left-0 w-full text-secondary"
                   viewBox="0 0 200 12"
                   fill="none"
                   preserveAspectRatio="none"

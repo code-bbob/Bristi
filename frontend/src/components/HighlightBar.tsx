@@ -26,7 +26,7 @@ function HighlightItem({ h }: { h: Highlight }) {
   );
 
   const classes =
-    "group/item inline-flex items-center gap-2 text-[0.875rem] text-blue-800 font-bold whitespace-nowrap transition-opacity duration-300 hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded";
+    "group/item inline-flex items-center gap-2 text-[0.875rem] text-primary-container font-bold whitespace-nowrap transition-opacity duration-300 hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded";
 
   return h.link ? (
     <Link href={h.link} className={classes}>

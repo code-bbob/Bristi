@@ -78,7 +78,7 @@ export function BristiLogo({ className = "h-14" }: { className?: string }) {
   return (
     <Link href="/" className="flex items-center shrink-0" aria-label="Bristi Educational Consultancy – Home">
       <Image
-        src="/bristi-logo.gif"
+        src="/bristi-new-logo-png.png"
         alt="Bristi Educational Consultancy Pvt. Ltd."
         width={1065}
         height={920}
