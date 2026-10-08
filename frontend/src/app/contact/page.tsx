@@ -12,7 +12,14 @@ export const metadata = {
 
 const [HEAD_OFFICE] = OFFICES;
 
-const CHANNELS = [
+const CHANNELS: {
+  icon: string;
+  title: string;
+  lines: string[];
+  hint: string;
+  href?: string;
+  altHref?: string;
+}[] = [
   {
     icon: "location_on",
     title: "The Office",
@@ -22,9 +29,10 @@ const CHANNELS = [
   {
     icon: "call",
     title: "Phone Support",
-    lines: [CONTACT_INFO.phone],
+    lines: [CONTACT_INFO.phone, CONTACT_INFO.phone2],
     href: CONTACT_INFO.phoneHref,
-    hint: "Mon–Fri, 9:30 AM – 5:30 PM",
+    altHref: CONTACT_INFO.phone2Href,
+    hint: "Mon–Fri, 9:00 AM – 6:00 PM",
   },
   {
     icon: "mail",
@@ -176,9 +184,17 @@ export default async function ContactPage() {
                   </div>
                   <div className="mt-4 pt-4 border-t border-outline-variant/40">
                     {card.href ? (
-                      <a href={card.href} className="font-display text-[1.05rem] font-bold text-primary hover:text-primary-container break-all transition-colors">
-                        {card.lines[0]}
-                      </a>
+                      <div className="flex flex-col gap-1">
+                        {card.lines.map((line, i) => (
+                          <a
+                            key={line}
+                            href={i === 1 && card.altHref ? card.altHref : card.href}
+                            className="font-display text-[1.05rem] font-bold text-primary hover:text-primary-container break-all transition-colors"
+                          >
+                            {line}
+                          </a>
+                        ))}
+                      </div>
                     ) : (
                       card.lines.map((line) => (
                         <p key={line} className="text-[0.9375rem] font-medium text-on-surface-variant">

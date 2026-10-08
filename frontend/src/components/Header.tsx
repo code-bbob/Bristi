@@ -181,6 +181,10 @@ export default function Header() {
               <span className="material-symbols-outlined text-[15px] shrink-0">call</span>
               {CONTACT_INFO.phone}
             </a>
+            <a className="hidden lg:inline-flex items-center gap-1.5 hover:text-secondary-fixed transition-colors duration-300 whitespace-nowrap" href={CONTACT_INFO.phone2Href}>
+              <span className="material-symbols-outlined text-[15px] shrink-0">call</span>
+              {CONTACT_INFO.phone2}
+            </a>
             <a className="hidden lg:inline-flex items-center gap-1.5 hover:text-secondary-fixed transition-colors duration-300 whitespace-nowrap" href={CONTACT_INFO.emailHref}>
               <span className="material-symbols-outlined text-[15px] shrink-0">mail</span>
               {CONTACT_INFO.email}

@@ -14,7 +14,7 @@ export const COMPANY = {
     "United States",
     "Europe",
   ],
-  hours: "Sunday – Friday: 9:30 AM – 5:30 PM (Saturday Closed)",
+  hours: "Sunday – Friday: 9:00 AM – 6:00 PM (Saturday Closed)",
 };
 
 export const WHO_WE_ARE: string[] = [

@@ -67,6 +67,10 @@ export default function Footer() {
               <a className="text-surface hover:text-secondary-fixed" href={CONTACT_INFO.phoneHref}>
                 {CONTACT_INFO.phone}
               </a>
+              ,{" "}
+              <a className="text-surface hover:text-secondary-fixed" href={CONTACT_INFO.phone2Href}>
+                {CONTACT_INFO.phone2}
+              </a>
             </p>
             <p className="font-body-sm text-[0.875rem] text-outline-variant">
               Email:{" "}

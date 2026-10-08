@@ -73,7 +73,7 @@ export default async function HomePage() {
           height={1016}
           sizes="100vw"
           priority
-          className="block w-full h-auto"
+          className="block w-full h-[210px] sm:h-[300px] md:h-auto object-cover object-center"
         />
       </section>
 
@@ -151,10 +151,10 @@ export default async function HomePage() {
                       <span className="material-symbols-outlined text-[24px]">support_agent</span>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-display text-[1.25rem] font-semibold text-on-surface truncate">
+                      <h4 className="font-display text-[1rem] sm:text-[1.125rem] md:text-[1.25rem] font-semibold text-on-surface leading-snug">
                         Start with a free consultation
                       </h4>
-                      <p className="text-[0.875rem] text-on-surface-variant truncate">
+                      <p className="text-[0.75rem] sm:text-[0.8125rem] md:text-[0.875rem] text-on-surface-variant leading-snug mt-0.5">
                         Talk to our certified counsellors in Kathmandu
                       </p>
                     </div>

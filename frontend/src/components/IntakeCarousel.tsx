@@ -124,7 +124,7 @@ export default function IntakeCarousel({ intakes }: { intakes: Intake[] }) {
   };
 
   return (
-    <section className="relative overflow-hidden" id="intakes">
+    <section className="relative overflow-hidden hidden md:block" id="intakes">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-primary/95" />
       </div>

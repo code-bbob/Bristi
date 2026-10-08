@@ -90,10 +90,12 @@ export function BristiLogo({ className = "h-14" }: { className?: string }) {
 }
 
 export const CONTACT_INFO = {
-  phone: "+977 9851413678",
-  phoneHref: "tel:+9779851413678",
-  email: "bristieducation766@gmail.com",
-  emailHref: "mailto:bristieducation766@gmail.com",
+  phone: "+977 9851412678",
+  phoneHref: "tel:+9779851412678",
+  phone2: "01-4971971",
+  phone2Href: "tel:014971971",
+  email: "info@bristi.edu.np",
+  emailHref: "mailto:info@bristi.edu.np",
   address: "7th Floor, City Square Mall, Samakhusi Chowk, Kathmandu, Nepal",
   regdNo: "357870",
 };

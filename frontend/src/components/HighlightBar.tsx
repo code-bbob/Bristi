@@ -13,7 +13,7 @@ const mod = (v: number, m: number) => ((v % m) + m) % m;
 function HighlightItem({ h }: { h: Highlight }) {
   const inner = (
     <>
-      <span className="material-symbols-outlined text-[14px] shrink-0 text-secondary">
+      <span className="material-symbols-outlined text-[12px] sm:text-[14px] shrink-0 text-secondary">
         bolt
       </span>
       <span>{h.text}</span>
@@ -26,7 +26,7 @@ function HighlightItem({ h }: { h: Highlight }) {
   );
 
   const classes =
-    "group/item inline-flex items-center gap-2 text-[0.875rem] text-primary-container font-bold whitespace-nowrap transition-opacity duration-300 hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded";
+    "group/item inline-flex items-center gap-1.5 sm:gap-2 text-[0.75rem] sm:text-[0.875rem] text-primary-container font-bold whitespace-nowrap transition-opacity duration-300 hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded";
 
   return h.link ? (
     <Link href={h.link} className={classes}>
@@ -99,9 +99,9 @@ export default function HighlightBar() {
     <div className="bg-surface-container-lowest text-on-surface border-b border-outline-variant/50">
 <div className="flex items-stretch max-w-[1600px] mx-auto ">
 
-      <div className="shrink-0 flex items-center gap-2 px-6 py-2 border-r border-outline-variant/50">
-        <span className="material-symbols-outlined text-[16px] text-secondary">bolt</span>
-        <span className="font-display text-red-500 font-bold text-[0.8125rem] uppercase tracking-[0.12em] text-on-surface-variant">
+      <div className="shrink-0 flex items-center gap-1.5 sm:gap-2 px-3 sm:px-6 py-1.5 sm:py-2 border-r border-outline-variant/50">
+        <span className="material-symbols-outlined text-[14px] sm:text-[16px] text-secondary">bolt</span>
+        <span className="font-display text-red-500 font-bold text-[0.6875rem] sm:text-[0.8125rem] uppercase tracking-[0.12em] text-on-surface-variant">
           Highlights
         </span>
       </div>
@@ -121,14 +121,14 @@ export default function HighlightBar() {
         }}
       >
         <div aria-hidden="true" className="overflow-hidden">
-          <div ref={trackRef} className="flex w-max will-change-transform items-center py-2 pr-6">
+          <div ref={trackRef} className="flex w-max will-change-transform items-center py-1 sm:py-2 pr-6">
             {[0, 1].map((copy) => (
               <div key={copy} ref={copy === 0 ? setRef : undefined} className="flex shrink-0">
                 {highlights.map((h) => (
                   <div
                     key={`${copy}-${h.id}`}
                     className="flex items-center shrink-0"
-                    style={{ paddingRight: "28px" }}
+                    style={{ paddingRight: "16px" }}
                   >
                     <HighlightItem h={h} />
                   </div>
