@@ -717,7 +717,7 @@ export default async function HomePage() {
                   { icon: "location_on", title: "Office Address", value: "7th Floor, City Square Mall, Samakhusi Chowk, Kathmandu, Nepal" },
                   { icon: "call", title: "Phone Support", value: CONTACT_INFO.phone, href: CONTACT_INFO.phoneHref },
                   { icon: "mail", title: "Official Email", value: CONTACT_INFO.email, href: CONTACT_INFO.emailHref },
-                  { icon: "schedule", title: "Working Hours", value: "Sunday – Friday: 9:30 AM – 5:30 PM (Saturday Closed)" },
+                  { icon: "schedule", title: "Working Hours", value: "Sunday – Friday: 9:00 AM – 6:00 PM (Saturday Closed)" },
                 ].map((item) => (
                   <div key={item.title} className="flex items-start gap-4 p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/50">
                     <div className="w-10 h-10 rounded-lg bg-primary-container/10 text-primary-container flex items-center justify-center shrink-0">

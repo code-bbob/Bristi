@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import {
   useEffect,
   useImperativeHandle,
   useRef,
   useState,
+  type MouseEvent as ReactMouseEvent,
   type PointerEvent as ReactPointerEvent,
   type Ref,
 } from "react";
@@ -33,7 +34,6 @@ export default function DestinationCarousel({
   className?: string;
   ref?: Ref<DestinationCarouselHandle>;
 }) {
-  const router = useRouter();
   const trackRef = useRef<HTMLDivElement>(null);
   const scrollRaf = useRef(0);
   const settleTimer = useRef(0);
@@ -117,37 +117,44 @@ export default function DestinationCarousel({
     return () => window.clearTimeout(settleTimer.current);
   }, []);
 
-  const go = (slug: string) => {
+  const handleCardClick = (e: ReactMouseEvent<HTMLAnchorElement>) => {
     if (suppressClick.current) {
       suppressClick.current = false;
-      return;
+      e.preventDefault();
     }
-    router.push(`/destinations/${slug}`);
   };
 
   const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (e.pointerType !== "mouse") return;
+    suppressClick.current = false;
     drag.current = { active: true, startX: e.clientX, startScroll: trackRef.current?.scrollLeft ?? 0, moved: 0 };
-    trackRef.current?.setPointerCapture(e.pointerId);
-    setDragging(true);
   };
 
   const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
     const d = drag.current;
     if (!d.active || !trackRef.current) return;
     const dx = e.clientX - d.startX;
-    if (Math.abs(dx) > 6) d.moved = 6;
+    if (!d.moved && Math.abs(dx) > 6) {
+      d.moved = 6;
+      trackRef.current.setPointerCapture(e.pointerId);
+      setDragging(true);
+    }
     if (d.moved) trackRef.current.scrollLeft = d.startScroll - dx;
   };
 
-  const onPointerUp = () => {
+  const onPointerUp = (e: ReactPointerEvent<HTMLDivElement>) => {
+    const el = trackRef.current;
+    if (el?.hasPointerCapture(e.pointerId)) el.releasePointerCapture(e.pointerId);
     if (drag.current.moved) suppressClick.current = true;
     drag.current.active = false;
     setDragging(false);
   };
 
-  const onPointerCancel = () => {
+  const onPointerCancel = (e: ReactPointerEvent<HTMLDivElement>) => {
+    const el = trackRef.current;
+    if (el?.hasPointerCapture(e.pointerId)) el.releasePointerCapture(e.pointerId);
     drag.current.active = false;
+    drag.current.moved = 0;
     setDragging(false);
   };
 
@@ -170,17 +177,14 @@ export default function DestinationCarousel({
           const flagSrc = flagUrl(country.flag_emoji ?? "");
           const clone = loop && i >= count;
           return (
-            <div
+            <Link
               key={`${country.id}-${i}`}
-              role="button"
+              href={`/destinations/${country.slug}`}
               tabIndex={clone ? -1 : 0}
               draggable={false}
-              onClick={() => go(country.slug)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  go(country.slug);
-                }
+              onClick={handleCardClick}
+              onKeyDown={() => {
+                suppressClick.current = false;
               }}
               aria-hidden={clone ? "true" : undefined}
               className="snap-start shrink-0 w-[calc(100vw-3rem)] sm:w-[420px] relative rounded-3xl overflow-hidden shadow-2xl group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
@@ -228,7 +232,7 @@ export default function DestinationCarousel({
                   <span className="material-symbols-outlined text-[16px]">east</span>
                 </div>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>
