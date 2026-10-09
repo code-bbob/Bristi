@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";   
 
 import { COMPANY } from "@/lib/company";
 
@@ -6,12 +7,23 @@ import { BristiLogo, CONTACT_INFO, NAV_LINKS } from "./ui";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-on-surface text-surface border-t border-outline-variant/20">
+    <footer className="w-full bg-primary text-surface border-t border-outline-variant/20">
       <div className="max-w-[1600px] mx-auto px-6 md:px-8 pt-16 pb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-14 border-b border-outline-variant/20">
           <div className="lg:col-span-4 space-y-4">
-            <BristiLogo className="h-14" />
-            <p className="font-body-sm text-[0.875rem] leading-[1.25rem] text-outline-variant max-w-sm">
+            {/* <BristiLogo className="h-14" /> */}
+                <Link href="/" className="flex items-center shrink-0" aria-label="Bristi Educational Consultancy – Home">
+      <Image
+        src="/bristi-logo-whitebg.png"
+        alt="Bristi Educational Consultancy Pvt. Ltd."
+        width={1065}
+        height={920}
+        priority
+        className={`h-28 w-auto object-contain`}
+      />
+    </Link>
+
+            <p className="font-body-sm text-[0.875rem] leading-[1.25rem] text-white max-w-sm">
               {COMPANY.tagline} {COMPANY.positioning}
             </p>
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded bg-surface/10 text-secondary-fixed text-[0.75rem] font-semibold">

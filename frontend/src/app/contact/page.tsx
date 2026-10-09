@@ -22,13 +22,13 @@ const CHANNELS: {
 }[] = [
   {
     icon: "location_on",
-    title: "The Office",
+    title: "Our Office",
     lines: HEAD_OFFICE.lines,
     hint: "Walk-ins welcome, Sunday – Friday",
   },
   {
     icon: "call",
-    title: "Phone Support",
+    title: "Guidance Desk",
     lines: [CONTACT_INFO.phone, CONTACT_INFO.phone2],
     href: CONTACT_INFO.phoneHref,
     altHref: CONTACT_INFO.phone2Href,
@@ -176,7 +176,7 @@ export default async function ContactPage() {
                       <span className="material-symbols-outlined text-[26px]">{card.icon}</span>
                     </span>
                     <div className="min-w-0">
-                      <h3 className="font-display text-[1.15rem] font-semibold text-on-surface">{card.title}</h3>
+                      <h3 className=" text-[1.15rem] font-semibold font-sans text-on-surface">{card.title}</h3>
                       <p className="text-[0.72rem] font-semibold uppercase tracking-wider text-on-surface-variant mt-0.5">
                         {card.hint}
                       </p>
@@ -222,7 +222,7 @@ export default async function ContactPage() {
                   <span className="w-3 h-3 rounded-full bg-secondary/70" />
                   <span className="w-3 h-3 rounded-full bg-primary-container/70" />
                   <span className="ml-3 text-[0.75rem] font-semibold text-on-surface-variant">
-                    draft_your_future.txt
+                    Information & Inquiry
                   </span>
                 </div>
                 <div className="p-7 md:p-10">

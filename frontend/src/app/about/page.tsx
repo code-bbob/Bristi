@@ -178,7 +178,7 @@ export default async function AboutPage() {
             <div className="lg:col-span-8 space-y-5">
               {WHO_WE_ARE.map((para, i) => (
                 <Reveal key={i} delay={i * 80}>
-                  <p className="text-[1.0625rem] leading-[1.9rem] text-on-surface-variant">{para}</p>
+                  <p className="text-[1.0625rem] leading-[1.9rem] text-justify text-on-surface-variant">{para}</p>
                 </Reveal>
               ))}
               <Reveal delay={320}>
@@ -317,7 +317,7 @@ export default async function AboutPage() {
         <div className="max-w-[1600px] mx-auto px-6 md:px-8">
           <SectionHeading
             badge={<><span className="material-symbols-outlined text-[16px]">location_on</span>Our Offices</>}
-            title="Come see us in Kathmandu."
+            title="Visit Us."
             subtitle="Walk in, call, or send a note. A senior counsellor will see you — no appointment needed for a first conversation."
           />
 

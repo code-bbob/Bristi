@@ -18,7 +18,7 @@ export const COMPANY = {
 };
 
 export const WHO_WE_ARE: string[] = [
-  "Bristi Educational Consultancy Pvt. Ltd. was founded in 2024 with a single goal: to give Nepalese students who wish to pursue further education abroad the top-notch facilities, infrastructure and education that international degrees deserve. Numerous students have already been placed in the universities of their choice.",
+  "Bristi Educational Consultancy Pvt. Ltd. was founded in 2024 with a single goal to give Nepalese students who wish to pursue further education abroad the top-notch facilities, infrastructure and education that international degrees deserve. Numerous students have already been placed in the universities of their choice.",
   "Through our robust professional network of offices, we provide a professional platform to professionals and students looking for opportunities in foreign colleges. We offer our services for study abroad in Australia, the United Kingdom, Canada, South Korea, New Zealand, the United States and numerous other European nations.",
   "Our team is always eager and curious to provide prospective students with better counselling and visa application services in line with evolving international rules and courses. Our main goal is to help students select a course of study that aligns with their professional goals, academic standards and other considerations.",
   "Our helpful and knowledgeable staff walks students through every step of the visa application process — from selecting the course, university and country, to advice on offer letters, enrolment confirmation, visa processing and departure orientation.",

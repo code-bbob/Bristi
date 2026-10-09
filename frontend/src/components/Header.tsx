@@ -164,16 +164,21 @@ export default function Header() {
       <div className="bg-primary text-on-primary text-[0.75rem] font-medium tracking-[0.06em] py-2.5 px-6 hidden md:block overflow-hidden">
         <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-6">
           <div className="flex items-center gap-4 min-w-0 text-on-primary/75">
-            <span className="inline-flex items-center gap-1.5 shrink-0">
+            <span className="inline-flex items-center gap-8 shrink-0">
+            <span className="inline-flex items-center gap-4 min-w-0">
+
+            <span className="text-white font-bold capitalize text-lg shrink-0">Bristi Educational Consultancy Pvt. Ltd.</span>
+
               <span className="material-symbols-outlined text-[15px] text-secondary-fixed">
                 verified
               </span>
               Govt. Regd. No. {CONTACT_INFO.regdNo}
             </span>
-            <span className="text-secondary-fixed/50 shrink-0">/</span>
-            <span className="inline-flex items-center gap-1.5 min-w-0">
+<span className="inline-flex mt-2">
+
               <span className="material-symbols-outlined text-[15px] shrink-0">location_on</span>
               <span className="truncate">{CONTACT_INFO.address}</span>
+</span>
             </span>
           </div>
           <div className="flex items-center gap-6 shrink-0">
