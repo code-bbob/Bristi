@@ -161,43 +161,47 @@ export default function Header() {
 
   return (
     <>
-      <div className="bg-primary text-on-primary text-[0.75rem] font-medium tracking-[0.06em] py-2.5 px-6 hidden md:block overflow-hidden">
-        <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-6">
-          <div className="flex items-center gap-4 min-w-0 text-on-primary/75">
-            <span className="inline-flex items-center gap-8 shrink-0">
-            <span className="inline-flex items-center gap-4 min-w-0">
+<div className="bg-primary text-white text-[0.75rem] font-medium tracking-[0.04em] py-2.5 px-6 hidden md:block overflow-hidden">
+  <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-6 whitespace-nowrap">
+    {/* Company name */}
+    <span className="font-bold capitalize text-[0.9375rem] shrink-0 text-white">
+      Bristi Educational Consultancy Pvt. Ltd.
+    </span>
 
-            <span className="text-white font-bold capitalize text-lg shrink-0">Bristi Educational Consultancy Pvt. Ltd.</span>
+    {/* Reg no. (lg+) */}
+    <span className="hidden lg:inline-flex items-center gap-1.5 shrink-0 text-white">
+      <span className="material-symbols-outlined text-[15px] shrink-0 text-white">verified</span>
+      Govt. Regd. No. {CONTACT_INFO.regdNo}
+    </span>
 
-              <span className="material-symbols-outlined text-[15px] text-secondary-fixed">
-                verified
-              </span>
-              Govt. Regd. No. {CONTACT_INFO.regdNo}
-            </span>
-<span className="inline-flex mt-2">
+    {/* Address (xl+, shrinks/truncates if tight) */}
+    <span className="hidden xl:inline-flex items-center gap-1.5 min-w-0 text-white">
+      <span className="material-symbols-outlined text-[15px] shrink-0 text-white">location_on</span>
+      <span className="truncate">{CONTACT_INFO.address}</span>
+    </span>
 
-              <span className="material-symbols-outlined text-[15px] shrink-0">location_on</span>
-              <span className="truncate">{CONTACT_INFO.address}</span>
-</span>
-            </span>
-          </div>
-          <div className="flex items-center gap-6 shrink-0">
-            <a className="inline-flex items-center gap-1.5 hover:text-secondary-fixed transition-colors duration-300 whitespace-nowrap" href={CONTACT_INFO.phoneHref}>
-              <span className="material-symbols-outlined text-[15px] shrink-0">call</span>
-              {CONTACT_INFO.phone}
-            </a>
-            <a className="hidden lg:inline-flex items-center gap-1.5 hover:text-secondary-fixed transition-colors duration-300 whitespace-nowrap" href={CONTACT_INFO.phone2Href}>
-              <span className="material-symbols-outlined text-[15px] shrink-0">call</span>
-              {CONTACT_INFO.phone2}
-            </a>
-            <a className="hidden lg:inline-flex items-center gap-1.5 hover:text-secondary-fixed transition-colors duration-300 whitespace-nowrap" href={CONTACT_INFO.emailHref}>
-              <span className="material-symbols-outlined text-[15px] shrink-0">mail</span>
-              {CONTACT_INFO.email}
-            </a>
-          </div>
-        </div>
-      </div>
+    {/* Phones (one icon, separated by "/") */}
+    <span className="inline-flex items-center gap-1.5 shrink-0 text-white">
+      <span className="material-symbols-outlined text-[15px] shrink-0 text-white">call</span>
+      <a className="hover:opacity-80 transition-opacity duration-300" href={CONTACT_INFO.phoneHref}>
+        {CONTACT_INFO.phone}
+      </a>
+      <span aria-hidden="true" className="px-0.5">/</span>
+      <a className="hover:opacity-80 transition-opacity duration-300" href={CONTACT_INFO.phone2Href}>
+        {CONTACT_INFO.phone2}
+      </a>
+    </span>
 
+    {/* Email (2xl+) */}
+    <a
+      className="hidden 2xl:inline-flex items-center gap-1.5 shrink-0 text-white hover:opacity-80 transition-opacity duration-300"
+      href={CONTACT_INFO.emailHref}
+    >
+      <span className="material-symbols-outlined text-[15px] shrink-0 text-white">mail</span>
+      {CONTACT_INFO.email}
+    </a>
+  </div>
+</div>
       <header className="sticky top-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-xl border-b border-outline-variant/60">
         <div className="max-w-[1600px] mx-auto px-6 md:px-8 py-3 flex items-center justify-between gap-6">
           <BristiLogo className="h-16" />
